@@ -38,7 +38,6 @@
             justify-content: center;
         }
     </style>
-    <h1>This Is For My Zaddy Sebastian</h1>
 </head>
 <body id="page-top">
     <div class="game-wrapper">
@@ -62,6 +61,9 @@
                                                         type="button" class="play-btn__ctrl">Play
                                                 </button>
                                             </div>
+                                            <div class="fullscreen-btn">
+                                                <button id="fullscreen-embed" type="button" class="fullscreen-btn__ctrl">Fullscreen</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -78,6 +80,7 @@
     <script>
         window.addEventListener("DOMContentLoaded", function () {
             add_iframe();
+            add_fullscreen();
         });
 
         function add_iframe() {
@@ -102,6 +105,21 @@
                 } else {
                     $('#game-code-mobile').css('display', 'none');
                     $('#game-code').html(html);
+                }
+            });
+        }
+
+        function add_fullscreen() {
+            $('#fullscreen-embed').click(function () {
+                let iframe = document.getElementById('game-area');
+                if (iframe.requestFullscreen) {
+                    iframe.requestFullscreen();
+                } else if (iframe.mozRequestFullScreen) { // Firefox
+                    iframe.mozRequestFullScreen();
+                } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
+                    iframe.webkitRequestFullscreen();
+                } else if (iframe.msRequestFullscreen) { // IE/Edge
+                    iframe.msRequestFullscreen();
                 }
             });
         }
