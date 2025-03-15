@@ -6,38 +6,6 @@
     <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
     <link rel="stylesheet" type="text/css" href="style.css" />
     <link rel="apple-touch-icon" href="https://geometry-dashonline.io/cache/data/image/options/favicon1-s512x512.png">
-    <style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .game-wrapper {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            width: 100%;
-        }
-        .game-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-        }
-        .game-box {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .game-iframe-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
 </head>
 <body id="page-top">
     <div class="game-wrapper">
@@ -60,9 +28,7 @@
                                                         data-src="https://html5.gamemonetize.co/1s10wsxntjub41qo2puh7jlx3qmbvh5t/"
                                                         type="button" class="play-btn__ctrl">Play
                                                 </button>
-                                            </div>
-                                            <div class="fullscreen-btn">
-                                                <button id="fullscreen-embed" type="button" class="fullscreen-btn__ctrl">Fullscreen</button>
+                                                <button id="fullscreen-toggle" type="button" class="play-btn__ctrl">Fullscreen</button>
                                             </div>
                                         </div>
                                     </div>
@@ -80,7 +46,7 @@
     <script>
         window.addEventListener("DOMContentLoaded", function () {
             add_iframe();
-            add_fullscreen();
+            add_fullscreen_option();
         });
 
         function add_iframe() {
@@ -109,17 +75,29 @@
             });
         }
 
-        function add_fullscreen() {
-            $('#fullscreen-embed').click(function () {
-                let iframe = document.getElementById('game-area');
-                if (iframe.requestFullscreen) {
-                    iframe.requestFullscreen();
-                } else if (iframe.mozRequestFullScreen) { // Firefox
-                    iframe.mozRequestFullScreen();
-                } else if (iframe.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    iframe.webkitRequestFullscreen();
-                } else if (iframe.msRequestFullscreen) { // IE/Edge
-                    iframe.msRequestFullscreen();
+        function add_fullscreen_option() {
+            $('#fullscreen-toggle').click(function () {
+                let elem = document.getElementById("game-player");
+                if (!document.fullscreenElement) {
+                    if (elem.requestFullscreen) {
+                        elem.requestFullscreen();
+                    } else if (elem.mozRequestFullScreen) { // Firefox
+                        elem.mozRequestFullScreen();
+                    } else if (elem.webkitRequestFullscreen) { // Chrome, Safari & Opera
+                        elem.webkitRequestFullscreen();
+                    } else if (elem.msRequestFullscreen) { // IE/Edge
+                        elem.msRequestFullscreen();
+                    }
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                    } else if (document.mozCancelFullScreen) { // Firefox
+                        document.mozCancelFullScreen();
+                    } else if (document.webkitExitFullscreen) { // Chrome, Safari & Opera
+                        document.webkitExitFullscreen();
+                    } else if (document.msExitFullscreen) { // IE/Edge
+                        document.msExitFullscreen();
+                    }
                 }
             });
         }
